@@ -7,13 +7,12 @@ import { Container } from './styles';
 import Personage from '../../components/Personage';
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const personages = useSelector(state => state.home.personages);
+  const fetchPersonages = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.getPersonage());
-  }, [dispatch]);
-
-  const personages = useSelector(state => state.home.personages);
+    fetchPersonages(actions.getPersonage());
+  }, [fetchPersonages]);
 
   return (
     <>
