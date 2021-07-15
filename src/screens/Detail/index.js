@@ -16,17 +16,8 @@ const Favorites = () => {
 
   const addPersonageFavoriteList = personageProp =>
     dispatch(actions.addPersonageFavorite(personageProp));
-  const removePersonagekList = personageProp =>
+  const removePersonageList = personageProp =>
     dispatch(actions.removePersonageFavorite(personageProp));
-
-  const handleAddBookmark = personageProp => {
-    addPersonageFavoriteList(personageProp);
-    console.log(personageProp);
-  };
-
-  const handleRemoveBookmark = personageProp => {
-    removePersonagekList(personageProp);
-  };
 
   const ifExists = personageProp => {
     if (
@@ -43,7 +34,9 @@ const Favorites = () => {
       <Header
         title={personage.name}
         onPress={item => {
-          ifExists(item) ? handleRemoveBookmark(item) : handleAddBookmark(item);
+          ifExists(item)
+            ? addPersonageFavoriteList(item)
+            : removePersonageList(item);
         }}
         textButton="Favorite"
       />

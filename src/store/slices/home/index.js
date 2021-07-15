@@ -44,6 +44,7 @@ const reducer = (state = initialState, { type, payload }) => {
       };
     /*-------------------------------------------------*/
     case ADD_PERSONAGE_FAVORITE:
+      console.log('aqui', payload);
       return {
         ...state,
         favoritesPersonages: [...state.favoritesPersonages, payload],
