@@ -2,11 +2,16 @@ import React from 'react';
 
 import { Container, Title } from './styles';
 
+import Header from '../../components/Header';
+
 const Favorites = () => {
   return (
-    <Container>
-      <Title>Favoritos!!</Title>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Title>Favoritos</Title>
+      </Container>
+    </>
   );
 };
 

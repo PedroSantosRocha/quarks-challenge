@@ -1,29 +1,44 @@
 import React, { useEffect } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-import { actions } from '../../store/slices/home';
+import { actions, selectors } from '../../store/slices/home';
 import { Container } from './styles';
+
 import Personage from '../../components/Personage';
+import Header from '../../components/Header';
 
 const Home = () => {
-  const personages = useSelector(state => state.home.personages);
-  const fetchPersonages = useDispatch();
+  const navigation = useNavigation();
+  const personages = useSelector(selectors.personages);
+  const dispatch = useDispatch();
+
+  function navigateToDetail(personage) {
+    navigation.navigate('Detail', { personage });
+  }
 
   useEffect(() => {
-    fetchPersonages(actions.getPersonage());
-  }, [fetchPersonages]);
+    dispatch(actions.getPersonage());
+  }, [dispatch]);
 
   return (
     <>
+      <Header title="Welcome!" subTitle="Find your favorite personage!" />
       <Container>
-        <SafeAreaView />
         <FlatList
           data={personages}
           keyExtractor={personage => String(personage.name)}
           showsVerticalScrollIndicator={false}
+          onEndReached={() => {
+            dispatch(actions.getPersonageNextPage());
+          }}
+          onEndReachedThreshold={0.1}
           renderItem={({ item: personage }) => (
-            <Personage name={personage.name} />
+            <Personage
+              name={personage.name}
+              onPress={() => navigateToDetail(personage)}
+            />
           )}
         />
       </Container>

@@ -6,18 +6,24 @@ export const GET_PERSONAGE_START = 'GET_PERSONAGE_START';
 export const GET_PERSONAGE_SUCCESS = 'GET_PERSONAGE_SUCCESS';
 export const GET_PERSONAGE_FAIL = 'GET_PERSONAGE_FAIL';
 
-export const ADD_PERSONAGE_FAVORITE_START = 'ADD_PERSONAGE_FAVORITE_START';
-export const ADD_PERSONAGE_FAVORITE_SUCCESS = 'ADD_PERSONAGE_FAVORITE_SUCCESS';
-export const ADD_PERSONAGE_FAVORITE_FAIL = 'ADD_PERSONAGE_FAVORITE_FAIL';
+export const ADD_PERSONAGE_FAVORITE = 'ADD_PERSONAGE_FAVORITE';
 
-export const REMOVE_PERSONAGE_FAVORITE_START =
-  'REMOVE_PERSONAGE_FAVORITE_START';
-export const REMOVE_PERSONAGE_FAVORITE_SUCCESS =
-  'REMOVE_PERSONAGE_FAVORITE_SUCCESS';
-export const REMOVE_PERSONAGE_FAVORITE_FAIL = 'GET_PERSONAGE_FAVORITE_FAIL';
+export const REMOVE_PERSONAGE_FAVORITE = 'REMOVE_PERSONAGE_FAVORITE';
+
+export const GET_PERSONAGE_NEXT_PAGE_START = 'GET_PERSONAGE_NEXT_PAGE_START';
+export const GET_PERSONAGE_NEXT_PAGE_SUCCESS =
+  'GET_PERSONAGE_NEXT_PAGE_SUCCESS';
+export const GET_PERSONAGE_NEXT_PAGE_FAIL = 'GET_PERSONAGE_NEXT_PAGE_FAIL';
 
 // Reducer
-const reducer = (state = {}, { type, payload }) => {
+const initialState = {
+  personageIsLoading: false,
+  personages: [],
+  favoritesPersonages: [],
+  nextPageURL: 0,
+};
+
+const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_PERSONAGE_START:
       return {
@@ -29,6 +35,7 @@ const reducer = (state = {}, { type, payload }) => {
         ...state,
         personages: payload.results,
         personageIsLoading: false,
+        nextPageURL: payload.next,
       };
     case GET_PERSONAGE_FAIL:
       return {
@@ -36,42 +43,37 @@ const reducer = (state = {}, { type, payload }) => {
         personageIsLoading: false,
       };
     /*-------------------------------------------------*/
-    case ADD_PERSONAGE_FAVORITE_START:
+    case ADD_PERSONAGE_FAVORITE:
       return {
         ...state,
-        personageIsLoading: true,
-      };
-    case ADD_PERSONAGE_FAVORITE_SUCCESS:
-      return {
-        ...state,
-        favoritesPersonages: [...state, payload.results],
-        personageIsLoading: false,
-      };
-    case ADD_PERSONAGE_FAVORITE_FAIL:
-      return {
-        ...state,
-        personageIsLoading: false,
+        favoritesPersonages: [...state.favoritesPersonages, payload],
       };
     /*-------------------------------------------------*/
-    case REMOVE_PERSONAGE_FAVORITE_START:
-      return {
-        ...state,
-        personageIsLoading: true,
-      };
-    case REMOVE_PERSONAGE_FAVORITE_SUCCESS:
+    case REMOVE_PERSONAGE_FAVORITE:
       return {
         ...state,
         favoritesPersonages: state.favoritesPersonages.filter(
-          personages => personages.name !== payload.results.name,
+          personages => personages.name !== payload.name,
         ),
-        personageIsLoading: false,
       };
-    case REMOVE_PERSONAGE_FAVORITE_FAIL:
+    /*-------------------------------------------------*/
+    case GET_PERSONAGE_NEXT_PAGE_START:
+      return {
+        ...state,
+        personageIsLoading: true,
+      };
+    case GET_PERSONAGE_NEXT_PAGE_SUCCESS:
+      return {
+        ...state,
+        personages: [...state.personages, ...payload.results],
+        personageIsLoading: false,
+        nextPageURL: payload.next,
+      };
+    case GET_PERSONAGE_NEXT_PAGE_FAIL:
       return {
         ...state,
         personageIsLoading: false,
       };
-
     default:
       return state;
   }
@@ -83,7 +85,7 @@ export default reducer;
 const getPersonage = () => async dispatch => {
   dispatch({ type: GET_PERSONAGE_START });
   axios
-    .get(`${BASE_URL}`)
+    .get(`${BASE_URL}/people`)
     .then(function (response) {
       dispatch({ type: GET_PERSONAGE_SUCCESS, payload: response.data });
     })
@@ -94,23 +96,45 @@ const getPersonage = () => async dispatch => {
 
 const addPersonageFavorite = personage => async dispatch => {
   dispatch({
-    type: ADD_PERSONAGE_FAVORITE_SUCCESS,
+    type: ADD_PERSONAGE_FAVORITE,
     payload: personage,
   });
 };
 
 const RemovePersonageFavorite = personage => async dispatch => {
   dispatch({
-    type: REMOVE_PERSONAGE_FAVORITE_SUCCESS,
+    type: REMOVE_PERSONAGE_FAVORITE,
     payload: personage,
   });
+};
+
+const getPersonageNextPage = () => async (dispatch, getState) => {
+  const { nextPageURL } = getState().home;
+  dispatch({ type: GET_PERSONAGE_NEXT_PAGE_START });
+  axios
+    .get(nextPageURL)
+    .then(function (response) {
+      console.log('AQUI', response.data);
+      dispatch({
+        type: GET_PERSONAGE_NEXT_PAGE_SUCCESS,
+        payload: response.data,
+      });
+    })
+    .catch(function (error) {
+      dispatch({ type: GET_PERSONAGE_NEXT_PAGE_FAIL });
+    });
 };
 
 export const actions = {
   getPersonage,
   addPersonageFavorite,
   RemovePersonageFavorite,
+  getPersonageNextPage,
 };
 
 // Selectors
-export const selectors = {};
+const personages = ({ home }) => home.personages;
+
+export const selectors = {
+  personages,
+};

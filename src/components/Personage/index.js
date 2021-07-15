@@ -2,9 +2,9 @@ import React from 'react';
 
 import { TouchableOpacity, Text } from './styles';
 
-const Personage = ({ name }) => {
+const Personage = ({ name, onPress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Text>{name}</Text>
     </TouchableOpacity>
   );
