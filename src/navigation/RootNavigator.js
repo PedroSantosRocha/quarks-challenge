@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Platform } from 'react-native';
 
 import Home from '../screens/Home';
 import Favorites from '../screens/Favorites';
@@ -18,6 +19,7 @@ const tabBarOptions = {
     fontSize: 16,
     textTransform: 'uppercase',
     fontWeight: 'bold',
+    marginBottom: Platform.OS === 'android' ? 25 : 10,
   },
   style: {
     height: '10%',

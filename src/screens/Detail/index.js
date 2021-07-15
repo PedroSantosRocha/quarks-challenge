@@ -1,20 +1,50 @@
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { actions, selectors } from '../../store/slices/home';
 import { Container, Card, TextCard, LittleCard } from './styles';
 
 import Header from '../../components/Header';
 
 const Favorites = () => {
   const route = useRoute();
+  const dispatch = useDispatch();
 
   const personage = route.params.personage;
+  const favoritesPersonages = useSelector(selectors.favoritesPersonages);
+
+  const addPersonageFavoriteList = personageProp =>
+    dispatch(actions.addPersonageFavorite(personageProp));
+  const removePersonagekList = personageProp =>
+    dispatch(actions.removePersonageFavorite(personageProp));
+
+  const handleAddBookmark = personageProp => {
+    addPersonageFavoriteList(personageProp);
+    console.log(personageProp);
+  };
+
+  const handleRemoveBookmark = personageProp => {
+    removePersonagekList(personageProp);
+  };
+
+  const ifExists = personageProp => {
+    if (
+      favoritesPersonages.filter(item => item.name === personageProp.name)
+        .length > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <>
       <Header
         title={personage.name}
-        onPress={console.log('button')}
+        onPress={item => {
+          ifExists(item) ? handleRemoveBookmark(item) : handleAddBookmark(item);
+        }}
         textButton="Favorite"
       />
       <Container>

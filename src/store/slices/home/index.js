@@ -101,7 +101,7 @@ const addPersonageFavorite = personage => async dispatch => {
   });
 };
 
-const RemovePersonageFavorite = personage => async dispatch => {
+const removePersonageFavorite = personage => async dispatch => {
   dispatch({
     type: REMOVE_PERSONAGE_FAVORITE,
     payload: personage,
@@ -114,7 +114,7 @@ const getPersonageNextPage = () => async (dispatch, getState) => {
   axios
     .get(nextPageURL)
     .then(function (response) {
-      console.log('AQUI', response.data);
+      console.log('NEXT_PAGE', response.data);
       dispatch({
         type: GET_PERSONAGE_NEXT_PAGE_SUCCESS,
         payload: response.data,
@@ -128,13 +128,15 @@ const getPersonageNextPage = () => async (dispatch, getState) => {
 export const actions = {
   getPersonage,
   addPersonageFavorite,
-  RemovePersonageFavorite,
+  removePersonageFavorite,
   getPersonageNextPage,
 };
 
 // Selectors
 const personages = ({ home }) => home.personages;
+const favoritesPersonages = ({ home }) => home.favoritesPersonages;
 
 export const selectors = {
   personages,
+  favoritesPersonages,
 };

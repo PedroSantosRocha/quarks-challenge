@@ -14,9 +14,11 @@ const Header = ({ title, subTitle, onPress, textButton }) => {
       <SafeAreaView />
       <Title>{title}</Title>
       <SubTitle>{subTitle}</SubTitle>
-      <FavoriteButton onPress={onPress}>
-        <TextButton>{textButton}</TextButton>
-      </FavoriteButton>
+      {onPress ? (
+        <FavoriteButton onPress={onPress}>
+          <TextButton>{textButton}</TextButton>
+        </FavoriteButton>
+      ) : null}
     </Container>
   );
 };
