@@ -20,23 +20,20 @@ const Favorites = () => {
     dispatch(actions.removePersonageFavorite(personageProp));
 
   const ifExists = personageProp => {
-    if (
+    return (
       favoritesPersonages.filter(item => item.name === personageProp.name)
         .length > 0
-    ) {
-      return true;
-    }
-    return false;
+    );
   };
 
   return (
     <>
       <Header
         title={personage.name}
-        onPress={item => {
-          ifExists(item)
-            ? addPersonageFavoriteList(item)
-            : removePersonageList(item);
+        onPress={() => {
+          ifExists(personage)
+            ? removePersonageList(personage)
+            : addPersonageFavoriteList(personage);
         }}
         textButton="Favorite"
       />

@@ -44,7 +44,10 @@ const reducer = (state = initialState, { type, payload }) => {
       };
     /*-------------------------------------------------*/
     case ADD_PERSONAGE_FAVORITE:
-      console.log('aqui', payload);
+      console.log('reducer add personage', [
+        ...state.favoritesPersonages,
+        payload,
+      ]);
       return {
         ...state,
         favoritesPersonages: [...state.favoritesPersonages, payload],
@@ -64,6 +67,10 @@ const reducer = (state = initialState, { type, payload }) => {
         personageIsLoading: true,
       };
     case GET_PERSONAGE_NEXT_PAGE_SUCCESS:
+      console.log('reducer next page', [
+        ...state.personages,
+        ...payload.results,
+      ]);
       return {
         ...state,
         personages: [...state.personages, ...payload.results],

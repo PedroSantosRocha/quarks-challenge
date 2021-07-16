@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { actions, selectors } from '../../store/slices/home';
+import { selectors } from '../../store/slices/home';
 import { Container } from './styles';
 
 import Personage from '../../components/Personage';
@@ -10,11 +10,6 @@ import Header from '../../components/Header';
 
 const Home = () => {
   const favorites = useSelector(selectors.favoritesPersonages);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(actions.getPersonage());
-  }, [dispatch]);
 
   return (
     <>
