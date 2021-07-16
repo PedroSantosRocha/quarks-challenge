@@ -33,6 +33,8 @@ const Home = () => {
           onEndReached={() => {
             dispatch(actions.getPersonageNextPage());
           }}
+          onEndReachedThreshold={0.3}
+          removeClippedSubviews={true}
           renderItem={({ item: personage }) => (
             <Personage
               name={personage.name}

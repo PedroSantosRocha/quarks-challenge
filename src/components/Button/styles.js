@@ -21,6 +21,7 @@ export const Title = styled.Text`
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+  text-transform: uppercase;
 `;
 
 export const TitleDisabled = styled.Text`
@@ -28,4 +29,5 @@ export const TitleDisabled = styled.Text`
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+  text-transform: uppercase;
 `;

@@ -50,10 +50,6 @@ const reducer = (state = initialState, { type, payload }) => {
         loading: true,
       };
     case types.GET_PERSONAGE_NEXT_PAGE_SUCCESS:
-      console.log('reducer next page', [
-        ...state.personages,
-        ...payload.results,
-      ]);
       return {
         ...state,
         personages: [...state.personages, ...payload.results],
@@ -105,7 +101,6 @@ const getPersonageNextPage = () => async (dispatch, getState) => {
   axios
     .get(nextPageURL)
     .then(function (response) {
-      console.log('NEXT_PAGE', response.data);
       dispatch({
         type: types.GET_PERSONAGE_NEXT_PAGE_SUCCESS,
         payload: response.data,
