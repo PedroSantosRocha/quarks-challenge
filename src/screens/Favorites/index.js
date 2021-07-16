@@ -26,9 +26,9 @@ const Home = () => {
       <Container>
         <FlatList
           data={favorites}
-          keyExtractor={favorite => String(favorite.name)}
+          keyExtractor={favorite => String(favorite.url)}
           showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.1}
+          removeClippedSubviews={true}
           renderItem={({ item: favorite }) => (
             <Personage
               name={favorite.name}
