@@ -19,7 +19,7 @@ export const FavoriteButtonDisabled = styled.TouchableOpacity`
 export const Title = styled.Text`
   color: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
 `;
@@ -27,7 +27,7 @@ export const Title = styled.Text`
 export const TitleDisabled = styled.Text`
   color: #1f1e25;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
 `;
