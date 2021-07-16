@@ -27,6 +27,7 @@ const Home = () => {
         <FlatList
           data={favorites}
           keyExtractor={favorite => String(favorite.url)}
+          onEndReachedThreshold={0.3}
           showsVerticalScrollIndicator={false}
           removeClippedSubviews={true}
           renderItem={({ item: favorite }) => (
