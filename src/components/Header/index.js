@@ -1,24 +1,13 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import {
-  Container,
-  Title,
-  SubTitle,
-  FavoriteButton,
-  TextButton,
-} from './styles';
+import { Container, Title, SubTitle } from './styles';
 
-const Header = ({ title, subTitle, onPress, textButton }) => {
+const Header = ({ title, subTitle }) => {
   return (
     <Container>
       <SafeAreaView />
       <Title>{title}</Title>
-      <SubTitle>{subTitle}</SubTitle>
-      {onPress ? (
-        <FavoriteButton onPress={onPress}>
-          <TextButton>{textButton}</TextButton>
-        </FavoriteButton>
-      ) : null}
+      {subTitle ? <SubTitle>{subTitle}</SubTitle> : null}
     </Container>
   );
 };

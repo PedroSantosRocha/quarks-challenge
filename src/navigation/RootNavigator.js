@@ -13,8 +13,8 @@ const Stack = createStackNavigator();
 
 const tabBarOptions = {
   showLabel: true,
-  inactiveTintColor: '#2D3038',
-  activeTintColor: '#FFFFFF',
+  inactiveTintColor: '#757978',
+  activeTintColor: '#45bbff',
   labelStyle: {
     fontSize: 16,
     textTransform: 'uppercase',

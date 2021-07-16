@@ -3,9 +3,17 @@ import { useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { actions, selectors } from '../../store/slices/home';
-import { Container, Card, TextCard, LittleCard } from './styles';
+import {
+  Container,
+  Card,
+  TextTitleCard,
+  TextContentCard,
+  LittleCard,
+  AreaButton,
+} from './styles';
 
 import Header from '../../components/Header';
+import Button from '../../components/Button';
 
 const Favorites = () => {
   const route = useRoute();
@@ -28,39 +36,49 @@ const Favorites = () => {
 
   return (
     <>
-      <Header
-        title={personage.name}
-        onPress={() => {
-          ifExists(personage)
-            ? removePersonageList(personage)
-            : addPersonageFavoriteList(personage);
-        }}
-        textButton="Favorite"
-      />
+      <Header title={personage.name} />
       <Container>
         <Card>
           <LittleCard>
-            <TextCard>Birth Date: {personage.birth_year}</TextCard>
+            <TextTitleCard>Birth Date: </TextTitleCard>
+            <TextContentCard>{personage.birth_year}</TextContentCard>
           </LittleCard>
           <LittleCard>
-            <TextCard>Gender: {personage.gender}</TextCard>
+            <TextTitleCard>Gender: </TextTitleCard>
+            <TextContentCard>{personage.gender}</TextContentCard>
           </LittleCard>
           <LittleCard>
-            <TextCard>Height: {personage.height}</TextCard>
+            <TextTitleCard>Height: </TextTitleCard>
+            <TextContentCard>{personage.height}</TextContentCard>
           </LittleCard>
           <LittleCard>
-            <TextCard>Mass: {personage.mass}</TextCard>
+            <TextTitleCard>Mass: </TextTitleCard>
+            <TextContentCard>{personage.mass}</TextContentCard>
           </LittleCard>
           <LittleCard>
-            <TextCard>Hair color: {personage.hair_color}</TextCard>
+            <TextTitleCard>Hair color: </TextTitleCard>
+            <TextContentCard>{personage.hair_color}</TextContentCard>
           </LittleCard>
           <LittleCard>
-            <TextCard>Eye Color: {personage.eye_color}</TextCard>
+            <TextTitleCard>Eye Color: </TextTitleCard>
+            <TextContentCard>{personage.eye_color}</TextContentCard>
           </LittleCard>
           <LittleCard>
-            <TextCard>Skin Color: {personage.skin_color}</TextCard>
+            <TextTitleCard>Skin Color: </TextTitleCard>
+            <TextContentCard>{personage.skin_color}</TextContentCard>
           </LittleCard>
         </Card>
+        <AreaButton>
+          <Button
+            onPress={() => {
+              ifExists(personage)
+                ? removePersonageList(personage)
+                : addPersonageFavoriteList(personage);
+            }}
+            title={!ifExists(personage) ? 'Favorite' : 'Disfavor'}
+            disabled={ifExists(personage) ? true : false}
+          />
+        </AreaButton>
       </Container>
     </>
   );

@@ -11,6 +11,7 @@ export const Card = styled.View`
   height: 500px;
   border-radius: 15px;
   padding: 10px;
+  margin-bottom: 30px;
 `;
 
 export const LittleCard = styled.View`
@@ -21,12 +22,23 @@ export const LittleCard = styled.View`
   padding: 10px;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
   width: 100%;
   margin: 5px 0px 5px 0px;
 `;
 
-export const TextCard = styled.Text`
+export const TextTitleCard = styled.Text`
   color: #fff;
   font-size: 20px;
   font-weight: 600;
+`;
+
+export const TextContentCard = styled.Text`
+  color: #45bbff;
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+export const AreaButton = styled.View`
+  align-items: center;
 `;
