@@ -30,10 +30,9 @@ const Home = () => {
           data={personages}
           keyExtractor={personage => String(personage.name)}
           showsVerticalScrollIndicator={false}
-          onEndReached={() => {
-            dispatch(actions.getPersonageNextPage());
-          }}
-          onEndReachedThreshold={0.1}
+          // onEndReached={() => {
+          //   dispatch(actions.getPersonageNextPage());
+          // }}
           renderItem={({ item: personage }) => (
             <Personage
               name={personage.name}
