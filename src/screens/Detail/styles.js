@@ -19,9 +19,8 @@ export const LittleCard = styled.View`
   background-color: #121015;
   height: 80px;
   border-radius: 15px;
-  padding: 10px;
+  padding: 10px 20px;
   align-items: center;
-  justify-content: center;
   flex-direction: row;
   width: 100%;
   margin: 5px 0px 5px 0px;
